@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PreLoaderComponent } from './components/pre-loader/pre-loader.component';
 import { MenuComponent } from "./components/menu/menu.component";
 import { AboutComponent } from "./components/about/about.component";
@@ -12,7 +12,8 @@ import { BlogComponent } from "./components/blog/blog.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, PreLoaderComponent, MenuComponent,
+  imports: [RouterOutlet, FormsModule, ReactiveFormsModule,
+    PreLoaderComponent, MenuComponent,
     AboutComponent, HomeComponent, PortfolioComponent,
     ContactComponent, BlogComponent],
   templateUrl: './app.component.html',

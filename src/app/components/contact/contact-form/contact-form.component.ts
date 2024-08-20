@@ -1,31 +1,32 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MessageResponseHelper } from '../../../interfaces/helpers/messageResponseHelper';
+import { ContactForm } from '../../../interfaces/contactInterfaces/contactForm';
+import { MessageResponse } from '../../../interfaces/general/messageResponse';
 
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.css'
 })
 export class ContactFormComponent {
-  contactForm: FormGroup;
+  contactForm: ContactForm = new ContactForm();
+  messageResponse?: MessageResponse;
 
+  constructor() {
 
-  constructor(private cForm: FormBuilder) {
-    this.contactForm = cForm.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required, Validators.minLength(10)]],
-      message: ['', Validators.required, Validators.minLength(20)]
-    })
   }
 
   onSubmit() {
-    if (this.contactForm.valid) {
-      console.log(this.contactForm)
+    if (!this.contactForm.isValide.isSuccess) {
+      this.messageResponse = new MessageResponseHelper(this.contactForm.isValide.message);
+    } else {
+      this.messageResponse = new MessageResponseHelper('Message submitted successfully', true);
     }
+
   }
 }

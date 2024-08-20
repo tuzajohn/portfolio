@@ -1,51 +1,29 @@
-<form class="contactform" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+<form class="contactform" (ngSubmit)="onSubmit()">
     <div class="contactform">
         <div class="row">
             <div class="col-12 col-md-4">
-                <input autocomplete="off" type="text" name="name" placeholder="YOUR NAME">
-                <div *ngIf="contactForm.get('name').invalid && myForm.get('name').touched">
-                    <div *ngIf="contactForm.get('name')?.errors?.[" required"]">Name is required.</div>
-                    <div *ngIf="contactForm.get('name').errors.minlength">Name must be at least
-                        4 characters long.</div>
-                </div>
+                <input autocomplete="off" type="text" required [(ngModel)]="contactForm.name" name="name" placeholder="YOUR NAME">
             </div>
             <div class="col-12 col-md-4">
-                <input autocomplete="off" type="email" name="email" placeholder="YOUR EMAIL">
-                <div *ngIf="contactForm.get('email').invalid && myForm.get('email').touched">
-                    <div *ngIf="contactForm.get('email').errors.required">Email is required.
-                    </div>
-                    <div *ngIf="contactForm.get('email').errors.email">Invalid email format.
-                    </div>
-                </div>
+                <input autocomplete="off" type="email" name="email" required [(ngModel)]="contactForm.email" placeholder="YOUR EMAIL">
             </div>
             <div class="col-12 col-md-4">
-                <input autocomplete="off" type="text" name="subject" placeholder="YOUR SUBJECT">
-                <div *if="contactForm.get('subject').invalid && myForm.get('subject').touched">
-                    <div *ngIf="contactForm.get('subject').errors.required">Subject is required.
-                    </div>
-                    <div *ngIf="contactForm.get('subject').errors.minlength">Subject must be at
-                        least
-                        10 characters long.</div>
-                </div>
+                <input autocomplete="off" type="text" name="subject" required [(ngModel)]="contactForm.subject"
+                    placeholder="YOUR SUBJECT">
             </div>
             <div class="col-12">
-                <textarea name="message" placeholder="YOUR MESSAGE"></textarea>
-
-                <div *ngIf="contactForm.get('message').invalid && myForm.get('message').touched">
-                    <div *ngIf="contactForm.get('message').errors.required">Message is required.
-                    </div>
-                    <div *ngIf="contactForm.get('message').errors.minlength">Message must be at
-                        least
-                        20 characters long.</div>
-                </div>
-
+                <textarea name="message" placeholder="YOUR MESSAGE" required [(ngModel)]="contactForm.message"></textarea>
                 <button type="submit" class="button">
                     <span class="button-text">Send Message</span>
                     <span class="button-icon fa fa-send"></span>
                 </button>
             </div>
             <div class="col-12 form-message">
-                <span class="output_message text-center font-weight-600 text-uppercase"></span>
+                <span class="output_message text-center text-success font-weight-600 text-uppercase"
+                    [ngClass]="{'text-success': messageResponse?.isSuccess, 'text-danger': !messageResponse?.isSuccess}">{{
+                    messageResponse?.message
+                    }}
+                </span>
             </div>
         </div>
     </div>
