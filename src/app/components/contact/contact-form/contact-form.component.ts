@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MessageResponseHelper } from '../../../interfaces/helpers/messageResponseHelper';
 import { ContactForm } from '../../../interfaces/contactInterfaces/contactForm';
 import { MessageResponse } from '../../../interfaces/general/messageResponse';
+import { ContentFulCme } from '../../../http/cms/contentful';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { MessageResponse } from '../../../interfaces/general/messageResponse';
   styleUrl: './contact-form.component.css'
 })
 export class ContactFormComponent {
+
+  contentClient: ContentFulCme = new ContentFulCme();
   contactForm: ContactForm = new ContactForm();
   messageResponse?: MessageResponse;
 
@@ -21,7 +24,12 @@ export class ContactFormComponent {
 
   }
 
+  ngOnInit(): void {
+    this.contentClient.getContactPageDetails();
+
+  }
   onSubmit() {
+
     if (!this.contactForm.isValide.isSuccess) {
       this.messageResponse = new MessageResponseHelper(this.contactForm.isValide.message);
     } else {
