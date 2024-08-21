@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactFormComponent } from './contact-form.component';
+import { ContactForm } from '../../../interfaces/contactInterfaces/contactForm';
 
 describe('ContactFormComponent', () => {
   let component: ContactFormComponent;
@@ -10,7 +11,7 @@ describe('ContactFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ContactFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ContactFormComponent);
     component = fixture.componentInstance;
@@ -20,4 +21,11 @@ describe('ContactFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should send', () => {
+    var contactForm = component.contactForm;
+    component.onSubmit();
+
+    expect(contactForm.isValide).toBeFalse();
+  })
 });

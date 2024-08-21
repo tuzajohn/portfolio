@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PreLoaderComponent } from './components/pre-loader/pre-loader.component';
 import { MenuComponent } from "./components/menu/menu.component";
@@ -19,6 +20,30 @@ import { BlogComponent } from "./components/blog/blog.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'my-portfolio';
+
+  constructor(private titleService: Title, private router: Router) { }
+
+
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const title = this.getTitle(this.router.routerState, this.router.routerState.root).join(' - ');
+        this.titleService.setTitle(title);
+      }
+    });
+  }
+
+  getTitle(state: any, parent: any): string[] {
+    const data = [];
+    if (parent && parent.snapshot.data && parent.snapshot.data['title']) {
+      data.push(parent.snapshot.data['title']);
+    }
+
+    if (state && parent) {
+      data.push(...this.getTitle(state, state.firstChild(parent)));
+    }
+    return data;
+  }
 }
