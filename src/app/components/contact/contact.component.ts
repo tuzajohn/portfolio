@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactFormComponent } from "./contact-form/contact-form.component";
 import { FieldsRoot } from '../../interfaces/contentful/rootFields';
-import { ContentFulCme } from '../../http/cms/contentful';
+import { ContentfullService } from '../../services/contentfull/contentfull.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,12 +13,19 @@ import { ContentFulCme } from '../../http/cms/contentful';
 })
 export class ContactComponent {
 
-  contentClient: ContentFulCme = new ContentFulCme();
   fieldRoot!: FieldsRoot;
 
-  ngOnInit(): void {
+  title: String = "hello";
 
-    this.fieldRoot = this.contentClient.getContactPageDetails();
+  constructor(private contentfullService: ContentfullService) {
 
+  }
+
+  async ngOnInit(): Promise<void> {
+
+    var field = await this.contentfullService.getFields()
+      .then(field => field);
+
+    this.fieldRoot = field;
   }
 }

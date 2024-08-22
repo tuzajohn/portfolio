@@ -5,6 +5,8 @@ import { MessageResponseHelper } from '../../../interfaces/helpers/messageRespon
 import { ContactForm } from '../../../interfaces/contactInterfaces/contactForm';
 import { MessageResponse } from '../../../interfaces/general/messageResponse';
 import { ContentFulCme } from '../../../http/cms/contentful';
+import { ContentfullService } from '../../../services/contentfull/contentfull.service';
+import { FormFields } from '../../../interfaces/contentful/formFields';
 
 
 @Component({
@@ -18,16 +20,26 @@ export class ContactFormComponent {
 
   contentClient: ContentFulCme = new ContentFulCme();
   contactForm: ContactForm = new ContactForm();
+  formLabels!: FormFields[];
   messageResponse?: MessageResponse;
 
-  constructor() {
+  constructor(private contentfullService: ContentfullService) {
 
   }
 
-  ngOnInit(): void {
-    this.contentClient.getContactPageDetails();
+  async ngOnInit(): Promise<void> {
+    var field = await this.contentfullService.getFields()
+      .then(field => field);
 
+    this.formLabels = field.formLabels;
   }
+
+  extractFieldLabels(key: String): String | undefined {
+    let field = this.formLabels.find(f => f.title == key);
+
+    return field?.placeholder;
+  }
+
   onSubmit() {
 
     if (!this.contactForm.isValide.isSuccess) {

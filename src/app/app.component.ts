@@ -9,6 +9,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { PortfolioComponent } from "./components/portfolio/portfolio.component";
 import { ContactComponent } from "./components/contact/contact.component";
 import { BlogComponent } from "./components/blog/blog.component";
+import { ContentfullService } from './services/contentfull/contentfull.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { BlogComponent } from "./components/blog/blog.component";
     PreLoaderComponent, MenuComponent,
     AboutComponent, HomeComponent, PortfolioComponent,
     ContactComponent, BlogComponent],
+  providers: [ContentfullService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

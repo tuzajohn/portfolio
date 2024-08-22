@@ -15,15 +15,11 @@ export class ContentFulCme {
         let contactPageContent: FieldsRoot = this.client
             .getEntry('2SlDeT1TCCOn80K8FZ04TD')
             .then((entry: EntryRoot) => {
-                console.log({ entry });
                 return entry.fields;
             })
             .catch((err: Error) => {
                 console.log(err)
-
             });
-
-        console.log({ contactPageContent });
 
         return contactPageContent;
     }

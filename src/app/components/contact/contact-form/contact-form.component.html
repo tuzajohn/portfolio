@@ -2,17 +2,20 @@
     <div class="contactform">
         <div class="row">
             <div class="col-12 col-md-4">
-                <input autocomplete="off" type="text" required [(ngModel)]="contactForm.name" name="name" placeholder="YOUR NAME">
+                <input autocomplete="off" type="text" required [(ngModel)]="contactForm.name" name="name"
+                    placeholder="{{extractFieldLabels('Name')}}">
             </div>
             <div class="col-12 col-md-4">
-                <input autocomplete="off" type="email" name="email" required [(ngModel)]="contactForm.email" placeholder="YOUR EMAIL">
+                <input autocomplete="off" type="email" name="email" required [(ngModel)]="contactForm.email"
+                    placeholder="{{extractFieldLabels('Email')}}">
             </div>
             <div class="col-12 col-md-4">
                 <input autocomplete="off" type="text" name="subject" required [(ngModel)]="contactForm.subject"
-                    placeholder="YOUR SUBJECT">
+                    placeholder="{{extractFieldLabels('Subject')}}">
             </div>
             <div class="col-12">
-                <textarea name="message" placeholder="YOUR MESSAGE" required [(ngModel)]="contactForm.message"></textarea>
+                <textarea name="message" placeholder="{{extractFieldLabels('Message')}}" required
+                    [(ngModel)]="contactForm.message"></textarea>
                 <button type="submit" class="button">
                     <span class="button-text">Send Message</span>
                     <span class="button-icon fa fa-send"></span>
