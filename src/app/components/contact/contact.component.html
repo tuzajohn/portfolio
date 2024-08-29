@@ -1,7 +1,8 @@
 <div class="page" id="contact">
     <div class="contact">
         <div class="title-section text-left text-sm-center">
-            <h2>{{ fieldRoot.pageHeaderForeground }}
+            <h2>
+                {{ fieldRoot.pageHeaderForeground }}
             </h2>
             <span class="title-bg">{{ fieldRoot.pageHeaderBackground }}</span>
         </div>
@@ -12,33 +13,19 @@
                     <div class="col-12 col-lg-4">
                         <h3 class="text-uppercase custom-title mb-0 ft-wt-600 pb-3">{{ fieldRoot.descriptionIntro }}</h3>
                         <p class="open-sans-font mb-3">{{ fieldRoot.descriptionLongContent }}</p>
-                        
-                        @for(detail of fieldRoot.contactDetails; track detail){
-                            @if(detail.iconRef === 'envelope'){
-                            <p class="open-sans-font custom-span-contact position-relative">
-                                <i class="fa fa-envelope-open position-absolute"></i>
-                                    <span class="d-block">mail me</span>{{detail.text}}
-                                </p>
-                            }
-                            @else {
-                                <p class="open-sans-font custom-span-contact position-relative">
-                                    <i class="fa fa-phone-square position-absolute"></i>
-                                    <span class="d-block">call me</span>{{detail.text}}
-                                </p>
-                            }
-                        }
-
+                        <p *ngFor="let detail of fieldRoot.contactDetails" class="open-sans-font custom-span-contact position-relative">
+                            <i class="fa fa-{{detail.iconRef}} position-absolute"></i>
+                            <span class="d-block">
+                                {{ detail.iconRef === 'envelope' ? 'mail me' : 'call me' }}
+                            </span>
+                            {{detail.text}}
+                        </p>
                         <ul class="social list-unstyled pt-1 mb-5">
-                            @for(social of fieldRoot.socials; track social){
-                                @if(social.isActive === 'yes'){
-                            
-                                    <li class="{{social.iconRef}}">
-                                        <a title="{{social.title}}" target="_blank" href="{{social.url}}">
-                                            <i class="fa fa-{{social.iconRef}}"></i>
-                                        </a>
-                                    </li>
-                                }
-                            }
+                            <li *ngFor="let social of fieldRoot.socials" class="{{social.iconRef}}">
+                                <a *ngIf="social.isActive === 'yes'" title="{{social.title}}" target="_blank" href="{{social.url}}">
+                                    <i class="fa fa-{{social.iconRef}}"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- Left Side Ends -->
