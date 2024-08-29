@@ -10,6 +10,7 @@ import { PortfolioComponent } from "./components/portfolio/portfolio.component";
 import { ContactComponent } from "./components/contact/contact.component";
 import { BlogComponent } from "./components/blog/blog.component";
 import { ContentfullService } from './services/contentfull/contentfull.service';
+import { EmailService } from './services/notifications/email.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ import { ContentfullService } from './services/contentfull/contentfull.service';
     PreLoaderComponent, MenuComponent,
     AboutComponent, HomeComponent, PortfolioComponent,
     ContactComponent, BlogComponent],
-  providers: [ContentfullService],
+  providers: [ContentfullService, EmailService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

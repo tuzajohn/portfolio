@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { createClient, Entry } from 'contentful';
+import { Asset, createClient, Entry } from 'contentful';
 import { FieldsRoot } from '../../interfaces/contentful/rootFields';
 import { EntryRoot } from '../../interfaces/contentful/entryRoot';
 import { ContactDetails } from '../../interfaces/contentful/contactDetails';
 import { FormFields } from '../../interfaces/contentful/formFields';
 import { SocialHandle } from '../../interfaces/contentful/socialHandles';
+import { ProfileData } from '../../interfaces/contactInterfaces/profileData';
+import { ProfileImage } from '../../interfaces/contactInterfaces/profileImage';
 
 const CONFIG = {
   space: '9w8s7scmuhwg',
@@ -12,6 +14,7 @@ const CONFIG = {
 
   contentTypeIds: {
     contactContent: '2SlDeT1TCCOn80K8FZ04TD',
+    profileData: '5bBRto8vxOO1QVgEDjStS'
   },
 };
 
@@ -40,11 +43,32 @@ export class ContentfullService {
           formLabels: entry.fields['formLabels'] as unknown as FormFields[],
           socials: entry.fields['socials'] as unknown as SocialHandle[]
         }
-
-        console.log({ fieldRoot });
-
         return fieldRoot;
       })
 
+  }
+
+  async getProfileInformation(): Promise<ProfileData> {
+    return await this.cdaClient.getEntry(CONFIG.contentTypeIds.profileData)
+      .then((entry) => {
+
+        let data: ProfileData = {
+          profileImage: entry.fields['profileImage'] as unknown as ProfileImage,
+          name: entry.fields['name'] as unknown as String,
+          latestWorkPosition: entry.fields['latestWorkPosition'] as unknown as String,
+          shortResume: entry.fields['shortResume'] as unknown as String
+        }
+
+        return data;
+      })
+  }
+
+  async getAsset(assetId: string): Promise<String> {
+    return await this.cdaClient.getAsset(assetId)
+      .then(img => {
+        console.log({ img });
+        let url: String = img['fields']?.['file']?.['url'] as unknown as String;
+        return url;
+      });;
   }
 }
