@@ -16,7 +16,7 @@ const CONFIG = {
 
   contentTypeIds: {
     contactContent: '2SlDeT1TCCOn80K8FZ04TD',
-    profileData: '5bBRto8vxOO1QVgEDjStS'
+    profileData: '5bBRto8vxOO1QVgEDjStS',
     workExperienceContents: 'experienceHistoryModel',
     skillsModelContents: 'skillsModel',
   },
