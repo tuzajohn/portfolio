@@ -47,4 +47,8 @@ export class ContentfullService {
       })
 
   }
+
+  async getWelcomeData(): Promise<any> {
+
+  }
 }
