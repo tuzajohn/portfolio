@@ -39,7 +39,7 @@ export class ContactFormComponent {
   }
 
   extractFieldLabels(key: String): String | undefined {
-    let field = this.formLabels.find(f => f.title == key);
+    let field = this.formLabels?.find(f => f.title == key);
 
     return field?.placeholder;
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ContactFormComponent } from "./contact-form/contact-form.component";
 import { FieldsRoot } from '../../interfaces/contentful/rootFields';
 import { ContentfullService } from '../../services/contentfull/contentfull.service';
@@ -7,7 +7,7 @@ import { ContentfullService } from '../../services/contentfull/contentfull.servi
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ContactFormComponent],
+  imports: [ContactFormComponent, CommonModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

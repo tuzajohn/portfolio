@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Asset, createClient, Entry } from 'contentful';
 import { FieldsRoot } from '../../interfaces/contentful/rootFields';
-import { EntryRoot } from '../../interfaces/contentful/entryRoot';
 import { ContactDetails } from '../../interfaces/contentful/contactDetails';
 import { FormFields } from '../../interfaces/contentful/formFields';
 import { SocialHandle } from '../../interfaces/contentful/socialHandles';
 import { ProfileData } from '../../interfaces/contactInterfaces/profileData';
 import { ProfileImage } from '../../interfaces/contactInterfaces/profileImage';
+import { WorkExperience } from '../../interfaces/contentful/work-experience';
+import { SkillListing } from '../../interfaces/contentful/skill-listing';
+
 
 const CONFIG = {
   space: '9w8s7scmuhwg',
@@ -15,6 +17,8 @@ const CONFIG = {
   contentTypeIds: {
     contactContent: '2SlDeT1TCCOn80K8FZ04TD',
     profileData: '5bBRto8vxOO1QVgEDjStS'
+    workExperienceContents: 'experienceHistoryModel',
+    skillsModelContents: 'skillsModel',
   },
 };
 
@@ -45,7 +49,6 @@ export class ContentfullService {
         }
         return fieldRoot;
       })
-
   }
 
   async getProfileInformation(): Promise<ProfileData> {
@@ -71,4 +74,42 @@ export class ContentfullService {
         return url;
       });;
   }
+
+  async getWelcomeData(): Promise<any> {
+
+  }
+
+  async getExperiences(query?: object): Promise<WorkExperience[]> {
+    return await this.cdaClient.getEntries(Object.assign({
+      content_type: CONFIG.contentTypeIds.workExperienceContents
+    }, query))
+      .then(res => res.items.map(this.convertToWorkExperience));
+  }
+
+  async getSkills(query?: object): Promise<SkillListing[]> {
+    return await this.cdaClient.getEntries(Object.assign({
+      content_type: CONFIG.contentTypeIds.skillsModelContents
+    }, query))
+      .then(res => res.items.map(this.convertToSkillListing));
+  }
+
+  //#region mappers
+  convertToWorkExperience(item: any): WorkExperience {
+    return {
+      category: item.fields.category as unknown as String,
+      description: item.fields.description as unknown as String,
+      employer: item.fields.employer as unknown as String,
+      jobProjectTitle: item.fields.jobProjectTitle as unknown as String,
+      period: item.fields.period as unknown as String,
+      fromDate: new Date(item.fields.fromDate),
+      toDate: new Date(item.fields.toDate ?? new Date().toLocaleDateString())
+    };
+  }
+  convertToSkillListing(item: any): SkillListing {
+    return {
+      skillLevelPercentage: item.fields.skillLevelPercentage as unknown as Number,
+      name: item.fields.name as unknown as String
+    };
+  }
+  //#endregion
 }
