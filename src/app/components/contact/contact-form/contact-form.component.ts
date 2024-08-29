@@ -7,6 +7,7 @@ import { MessageResponse } from '../../../interfaces/general/messageResponse';
 import { ContentFulCme } from '../../../http/cms/contentful';
 import { ContentfullService } from '../../../services/contentfull/contentfull.service';
 import { FormFields } from '../../../interfaces/contentful/formFields';
+import { EmailService } from '../../../services/notifications/email.service';
 
 
 @Component({
@@ -22,8 +23,11 @@ export class ContactFormComponent {
   contactForm: ContactForm = new ContactForm();
   formLabels!: FormFields[];
   messageResponse?: MessageResponse;
+  buttonMessage: String = 'Send Message';
 
-  constructor(private contentfullService: ContentfullService) {
+  constructor(private contentfullService: ContentfullService,
+    private emailService: EmailService
+  ) {
 
   }
 
@@ -42,11 +46,28 @@ export class ContactFormComponent {
 
   onSubmit() {
 
+    this.buttonMessage = 'Sending ...';
+
     if (!this.contactForm.isValide.isSuccess) {
       this.messageResponse = new MessageResponseHelper(this.contactForm.isValide.message);
     } else {
-      this.messageResponse = new MessageResponseHelper('Message submitted successfully', true);
+
+      let response = this.emailService.sendEmail({
+        from: this.contactForm.email,
+        subject: this.contactForm.subject,
+        text: `Message from ${this.contactForm.name} saying: ${this.contactForm.message}`,
+        to: ['johntuza94@gmail.com'],
+        html: undefined
+      });
+
+      if (typeof response === 'undefined') {
+        this.messageResponse = new MessageResponseHelper('Failed to send mail. Kindly try again later');
+      }
+      else {
+        this.messageResponse = new MessageResponseHelper('Message submitted successfully', true);
+      }
     }
 
+    this.buttonMessage = 'Send Message';
   }
 }
