@@ -26,12 +26,15 @@ import { DateHelpers } from './interfaces/helpers/date-helpers';
 })
 export class AppComponent implements OnInit {
   title = 'my-portfolio';
+  private lightThemeUrl = 'assets/light-theme.css';
+  private darkThemeUrl = 'assets/dark-theme.css';
 
   constructor(private titleService: Title, private router: Router) { }
 
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
+      this.setThemeBasedOnSystemPreference();
       if (event instanceof NavigationEnd) {
         const title = this.getTitle(this.router.routerState, this.router.routerState.root).join(' - ');
         this.titleService.setTitle(title);
@@ -49,5 +52,24 @@ export class AppComponent implements OnInit {
       data.push(...this.getTitle(state, state.firstChild(parent)));
     }
     return data;
+  }
+
+  private setThemeBasedOnSystemPreference() {
+    const themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      themeLink.href = this.darkThemeUrl;
+    } else {
+      themeLink.href = this.lightThemeUrl;
+    }
+
+    // Listen for changes in the system theme preference
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (event.matches) {
+        themeLink.href = this.darkThemeUrl;
+      } else {
+        themeLink.href = this.lightThemeUrl;
+      }
+    });
   }
 }
