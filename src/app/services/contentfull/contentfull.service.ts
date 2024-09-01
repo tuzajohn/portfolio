@@ -4,10 +4,11 @@ import { FieldsRoot } from '../../interfaces/contentful/rootFields';
 import { ContactDetails } from '../../interfaces/contentful/contactDetails';
 import { FormFields } from '../../interfaces/contentful/formFields';
 import { SocialHandle } from '../../interfaces/contentful/socialHandles';
-import { ProfileData } from '../../interfaces/contactInterfaces/profileData';
+import { AboutProfile, ProfileData } from '../../interfaces/contactInterfaces/profileData';
 import { ProfileImage } from '../../interfaces/contactInterfaces/profileImage';
 import { WorkExperience } from '../../interfaces/contentful/work-experience';
 import { SkillListing } from '../../interfaces/contentful/skill-listing';
+import { DateHelpers } from '../../interfaces/helpers/date-helpers';
 
 
 const CONFIG = {
@@ -32,7 +33,8 @@ export class ContentfullService {
     accessToken: CONFIG.accessToken
   });
 
-  constructor() { }
+
+  constructor(private dateHelpers: DateHelpers) { }
 
   async getFields(): Promise<FieldsRoot> {
     return await this.cdaClient.getEntry(CONFIG.contentTypeIds.contactContent)
@@ -66,17 +68,36 @@ export class ContentfullService {
       })
   }
 
+
+  async getAboutProfileInformation(): Promise<AboutProfile> {
+    return await this.cdaClient.getEntry(CONFIG.contentTypeIds.profileData)
+      .then((entry: any) => {
+
+        let data: AboutProfile = {
+          address: entry.fields['address'] as unknown as String,
+          firstName: entry.fields['firstName'] as unknown as String,
+          languages: entry.fields['languages'] as unknown as String,
+          skype: entry.fields['skype'] as unknown as String,
+          primaryPhoneNumber: entry.fields['primaryPhoneNumber'] as unknown as String,
+          lastName: entry.fields['lastName'] as unknown as String,
+          dateOfBirth: new Date(entry.fields['dateOfBirth'] ?? new Date().toLocaleDateString()),
+          nationality: entry.fields['nationality'] as unknown as String
+        }
+
+        if (data.dateOfBirth) {
+          data.age = this.dateHelpers.calculateAge(data.dateOfBirth);
+        }
+        return data;
+      })
+
+  }
+
   async getAsset(assetId: string): Promise<String> {
     return await this.cdaClient.getAsset(assetId)
       .then(img => {
-        console.log({ img });
         let url: String = img['fields']?.['file']?.['url'] as unknown as String;
         return url;
-      });;
-  }
-
-  async getWelcomeData(): Promise<any> {
-
+      });
   }
 
   async getExperiences(query?: object): Promise<WorkExperience[]> {
@@ -93,7 +114,6 @@ export class ContentfullService {
       .then(res => res.items.map(this.convertToSkillListing));
   }
 
-  //#region mappers
   convertToWorkExperience(item: any): WorkExperience {
     return {
       category: item.fields.category as unknown as String,
@@ -113,3 +133,5 @@ export class ContentfullService {
   }
   //#endregion
 }
+
+

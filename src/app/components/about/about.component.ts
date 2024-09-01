@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContentfullService } from '../../services/contentfull/contentfull.service';
 import { WorkExperience } from '../../interfaces/contentful/work-experience';
 import { SkillListing } from '../../interfaces/contentful/skill-listing';
+import { AboutProfile, ProfileData } from '../../interfaces/contactInterfaces/profileData';
 
 @Component({
   selector: 'app-about',
@@ -15,6 +16,7 @@ export class AboutComponent {
 
   experiences: WorkExperience[][] = [];
   skillListings: SkillListing[] = [];
+  profile: AboutProfile = {};
 
   constructor(private contentFullService: ContentfullService) { }
 
@@ -28,16 +30,10 @@ export class AboutComponent {
       .map((_, index, array) => (index % separatorCount === 0 ? array.slice(index, index + separatorCount) : null))
       .filter(group => group !== null) as WorkExperience[][];
 
+    this.skillListings = await this.contentFullService.getSkills();
 
-    let skills = await this.contentFullService.getSkills();
-    this.skillListings = skills;
-  }
+    this.profile = await this.contentFullService.getAboutProfileInformation();
 
-  async getWorkExperience(): Promise<void> {
-
-  }
-
-  async getSkillListing(): Promise<void> {
 
   }
 }
