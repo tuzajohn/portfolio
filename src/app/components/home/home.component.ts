@@ -27,6 +27,8 @@ export class HomeComponent {
           imageUrl: ''
         }
 
+        profileData
+
         return profileData;
       });
 
@@ -34,7 +36,5 @@ export class HomeComponent {
     profileData.imageUrl = assetUrl;
 
     this.profileWithImage = profileData;
-
-    console.log({ profileWithImage: this.profileWithImage });
   }
 } 
