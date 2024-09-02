@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Asset, createClient, Entry } from 'contentful';
+import { createClient } from 'contentful';
 import { FieldsRoot } from '../../interfaces/contentful/rootFields';
 import { ContactDetails } from '../../interfaces/contentful/contactDetails';
 import { FormFields } from '../../interfaces/contentful/formFields';
@@ -9,6 +9,7 @@ import { ProfileImage } from '../../interfaces/contactInterfaces/profileImage';
 import { WorkExperience } from '../../interfaces/contentful/work-experience';
 import { SkillListing } from '../../interfaces/contentful/skill-listing';
 import { DateHelpers } from '../../interfaces/helpers/date-helpers';
+import { BlogPost } from '../../interfaces/contentful/blog-post';
 
 
 const CONFIG = {
@@ -20,6 +21,7 @@ const CONFIG = {
     profileData: '5bBRto8vxOO1QVgEDjStS',
     workExperienceContents: 'experienceHistoryModel',
     skillsModelContents: 'skillsModel',
+    blogPost: 'blogPost'
   },
 };
 
@@ -114,6 +116,23 @@ export class ContentfullService {
       .then(res => res.items.map(this.convertToSkillListing));
   }
 
+  async getPosts(query?: object): Promise<BlogPost[]> {
+    return await this.cdaClient.getEntries(Object.assign({
+      content_type: CONFIG.contentTypeIds.blogPost
+    }, query))
+      .then(res => res.items.map((item, index) => {
+        let post: BlogPost = {
+          blogContent: item.fields['blogContent'] as any,
+          blogImage: item.fields['blogImage'] as unknown as ImageData,
+          blogSummary: item.fields['blogSummary'] as unknown as String,
+          title: item.fields['title'] as unknown as String
+        };
+
+        return post;
+      }));
+  }
+
+  //#region  helpers
   convertToWorkExperience(item: any): WorkExperience {
     return {
       category: item.fields.category as unknown as String,

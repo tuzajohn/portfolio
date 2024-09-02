@@ -33,7 +33,5 @@ export class AboutComponent {
     this.skillListings = await this.contentFullService.getSkills();
 
     this.profile = await this.contentFullService.getAboutProfileInformation();
-
-
   }
 }

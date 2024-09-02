@@ -19,7 +19,6 @@ export interface AboutProfile {
     nationality?: String | undefined,
 }
 
-
 export interface ProfileDataImage extends ProfileData {
     imageUrl: String
 }
