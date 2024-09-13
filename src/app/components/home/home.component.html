@@ -3,11 +3,11 @@
         <div class="container-fluid main-container container-home p-0">
             <div class="color-block d-none d-lg-block"></div>
             <div class="row home-details-container align-items-center">
-                <img class="col-lg-4 position-fixed d-none d-lg-block" src="{{profileWithImage.imageUrl}}"
+                <img class="col-lg-4 position-fixed d-none d-lg-block" src="{{profileWithImage.imageUrl ?? ''}}"
                     alt="">
                 <div class="col-12 col-lg-8 offset-lg-4 home-details text-left text-sm-center text-lg-left">
                     <div>
-                        <img src="{{profileWithImage.imageUrl}}"
+                        <img src="{{profileWithImage.imageUrl ?? ''}}"
                             class="img-fluid main-img-mobile d-none d-sm-block d-lg-none" alt="my picture">
                         <h2 class="text-uppercase poppins-font">I'm {{profileWithImage.name}}. <span>{{profileWithImage.latestWorkPosition}}</span>
                         </h2>

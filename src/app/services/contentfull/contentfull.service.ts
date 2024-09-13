@@ -72,7 +72,6 @@ export class ContentfullService {
   async getAboutProfileInformation(): Promise<AboutProfile> {
     return await this.cdaClient.getEntry(CONFIG.contentTypeIds.profileData)
       .then((entry: any) => {
-
         let data: AboutProfile = {
           address: entry.fields['address'] as unknown as String,
           firstName: entry.fields['firstName'] as unknown as String,

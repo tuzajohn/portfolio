@@ -32,7 +32,7 @@ export class HomeComponent {
         return profileData;
       });
 
-    var assetUrl: String = await this.contentfullService.getAsset(profileData?.profileImage.sys.id);
+    var assetUrl: String = await this.contentfullService.getAsset(profileData?.profileImage?.sys?.id ?? '');
     profileData.imageUrl = assetUrl;
 
     this.profileWithImage = profileData;

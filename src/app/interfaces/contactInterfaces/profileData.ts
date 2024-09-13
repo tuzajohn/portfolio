@@ -1,9 +1,9 @@
 import { ProfileImage } from "./profileImage"
 
 export interface ProfileData {
-    profileImage: ProfileImage,
-    name: String,
-    latestWorkPosition: String,
+    profileImage: ProfileImage | undefined,
+    name: String | undefined,
+    latestWorkPosition: String | undefined,
     shortResume?: String | undefined,
 }
 
@@ -21,5 +21,5 @@ export interface AboutProfile {
 
 
 export interface ProfileDataImage extends ProfileData {
-    imageUrl: String
+    imageUrl: String | undefined
 }
