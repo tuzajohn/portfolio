@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initMenu() {
    var desktop_nav = document.querySelector('#desktop-nav');
    var mobile_nav = document.querySelector('#mobile-nav');
    var link_about = document.querySelector('#link-about');
@@ -164,6 +164,10 @@ document.addEventListener('DOMContentLoaded', function () {
          mobile_nav.querySelector('li:nth-child(2)').classList.add('active');
       }, 500);
    });
+}
 
-
-});
+if (document.readyState === 'loading') {
+   document.addEventListener('DOMContentLoaded', initMenu);
+} else {
+   initMenu();
+}
