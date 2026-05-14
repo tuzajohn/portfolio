@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PreLoaderComponent } from './components/pre-loader/pre-loader.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -7,6 +7,20 @@ import { AboutComponent } from './components/about/about.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { BlogComponent } from './components/blog/blog.component';
+
+const SCRIPTS = [
+  'js/jquery-3.7.1.min.js',
+  'js/imagesloaded.pkgd.min.js',
+  'js/masonry.pkgd.min.js',
+  'js/classie.js',
+  'js/main.js',
+  'js/cbpGridGallery.js',
+  'js/jquery.hoverdir.js',
+  'js/bootstrap.js',
+  'js/popper.min.js',
+  'js/menu.js',
+  'js/custom.js',
+];
 
 @Component({
   selector: 'app-landing',
@@ -18,12 +32,25 @@ import { BlogComponent } from './components/blog/blog.component';
   ],
   templateUrl: './landing.component.html'
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, AfterViewInit {
   constructor(private titleService: Title) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('John Tuza — Portfolio');
     this.applyTheme();
+  }
+
+  ngAfterViewInit(): void {
+    this.loadScriptsSequentially(SCRIPTS);
+  }
+
+  private loadScriptsSequentially(srcs: string[]): void {
+    if (!srcs.length) return;
+    const [first, ...rest] = srcs;
+    const script = document.createElement('script');
+    script.src = first;
+    script.onload = () => this.loadScriptsSequentially(rest);
+    document.body.appendChild(script);
   }
 
   private applyTheme(): void {
