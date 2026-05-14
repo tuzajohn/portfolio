@@ -1,0 +1,67 @@
+<div class="page-header">
+  <h1>Blog</h1>
+  <button class="btn-primary" (click)="openAdd()">+ New Post</button>
+</div>
+
+<div class="editor-card" *ngIf="!showForm">
+  <table class="data-table" *ngIf="posts.length; else noPosts">
+    <thead>
+      <tr><th>Title</th><th>Published</th><th>Status</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts">
+        <td>{{ post.title }}</td>
+        <td>{{ post.publishedAt | date:'mediumDate' }}</td>
+        <td>
+          <span class="badge" [class.visible]="post.isPublished">
+            {{ post.isPublished ? 'Published' : 'Draft' }}
+          </span>
+        </td>
+        <td class="actions">
+          <button class="btn-edit" (click)="editPost(post)">Edit</button>
+          <button class="btn-delete" (click)="delete(post._id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noPosts><p class="empty-state">No blog posts yet. Add your first post!</p></ng-template>
+</div>
+
+<div class="editor-card" *ngIf="showForm">
+  <h2>{{ editing ? 'Edit Post' : 'New Post' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="save()" class="editor-form">
+    <div class="field">
+      <label>Title *</label>
+      <input type="text" formControlName="title">
+    </div>
+    <div class="field">
+      <label>Excerpt</label>
+      <textarea formControlName="excerpt" rows="2" placeholder="Short summary shown in the blog listing…"></textarea>
+    </div>
+    <div class="field">
+      <label>Content *</label>
+      <textarea formControlName="content" rows="10" placeholder="Full post content (Markdown or HTML)…"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Thumbnail URL</label>
+        <input type="url" formControlName="thumbnailUrl">
+      </div>
+      <div class="field">
+        <label>Publish Date</label>
+        <input type="date" formControlName="publishedAt">
+      </div>
+    </div>
+    <div class="field">
+      <label>Tags (comma-separated)</label>
+      <input type="text" formControlName="tags" placeholder="Angular, TypeScript, MongoDB">
+    </div>
+    <div class="field checkbox">
+      <label><input type="checkbox" formControlName="isPublished"> Published</label>
+    </div>
+    <div class="form-actions">
+      <button type="submit">{{ editing ? 'Update' : 'Publish' }}</button>
+      <button type="button" class="btn-secondary" (click)="resetForm()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,74 @@
+<div class="page-header">
+  <h1>Contact Page</h1>
+  <p>Manage the contact section header, details, and social links.</p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSave()" class="editor-form">
+  <div class="editor-card">
+    <h2>Page Header</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>Foreground Title</label>
+        <input type="text" formControlName="pageHeaderForeground" placeholder="Get in touch">
+      </div>
+      <div class="field">
+        <label>Background Title</label>
+        <input type="text" formControlName="pageHeaderBackground" placeholder="Contact">
+      </div>
+    </div>
+    <div class="field">
+      <label>Intro Heading</label>
+      <input type="text" formControlName="descriptionIntro">
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <textarea formControlName="descriptionLongContent" rows="4"></textarea>
+    </div>
+  </div>
+
+  <div class="editor-card">
+    <h2>Contact Details</h2>
+    <div formArrayName="contactDetails">
+      <div *ngFor="let ctrl of contactDetails.controls; let i = index" [formGroupName]="i" class="array-row">
+        <input type="text" formControlName="title" placeholder="Title">
+        <input type="text" formControlName="text" placeholder="Value (email, phone…)">
+        <input type="text" formControlName="iconRef" placeholder="fa icon (envelope, phone)">
+        <label><input type="checkbox" formControlName="isActive"> Active</label>
+        <button type="button" class="btn-delete" (click)="removeDetail(i)">✕</button>
+      </div>
+    </div>
+    <button type="button" class="btn-secondary" (click)="addDetail()">+ Add Detail</button>
+  </div>
+
+  <div class="editor-card">
+    <h2>Social Links</h2>
+    <div formArrayName="socials">
+      <div *ngFor="let ctrl of socials.controls; let i = index" [formGroupName]="i" class="array-row">
+        <input type="text" formControlName="title" placeholder="Title (LinkedIn, GitHub…)">
+        <input type="url" formControlName="url" placeholder="https://...">
+        <input type="text" formControlName="iconRef" placeholder="fa icon (linkedin, github)">
+        <label><input type="checkbox" formControlName="isActive"> Active</label>
+        <button type="button" class="btn-delete" (click)="removeSocial(i)">✕</button>
+      </div>
+    </div>
+    <button type="button" class="btn-secondary" (click)="addSocial()">+ Add Social</button>
+  </div>
+
+  <div class="editor-card">
+    <h2>Form Labels</h2>
+    <div formArrayName="formLabels">
+      <div *ngFor="let ctrl of formLabels.controls; let i = index" [formGroupName]="i" class="array-row">
+        <input type="text" formControlName="title" placeholder="Field name (Name, Email…)">
+        <input type="text" formControlName="placeholder" placeholder="Placeholder text">
+        <button type="button" class="btn-delete" (click)="removeLabel(i)">✕</button>
+      </div>
+    </div>
+    <button type="button" class="btn-secondary" (click)="addLabel()">+ Add Label</button>
+  </div>
+
+  <div class="form-actions sticky-actions">
+    <button type="submit" [disabled]="saving">{{ saving ? 'Saving…' : 'Save All Changes' }}</button>
+    <span *ngIf="saved" class="success-msg">Saved successfully.</span>
+    <span *ngIf="error" class="error-msg">{{ error }}</span>
+  </div>
+</form>

@@ -1,0 +1,86 @@
+<div class="page-header">
+  <h1>Portfolio</h1>
+  <button class="btn-primary" (click)="openAdd()">+ Add Item</button>
+</div>
+
+<div class="items-grid" *ngIf="items.length && !showForm">
+  <div class="item-card" *ngFor="let item of items">
+    <div class="item-thumb" [style.backgroundImage]="'url(' + item.thumbnailUrl + ')'"></div>
+    <div class="item-info">
+      <h4>{{ item.title }}</h4>
+      <p>{{ item.projectType }} · {{ item.client }}</p>
+      <small>{{ item.technologies }}</small>
+    </div>
+    <div class="item-actions">
+      <span class="badge" [class.visible]="item.isVisible">{{ item.isVisible ? 'Visible' : 'Hidden' }}</span>
+      <button class="btn-edit" (click)="editItem(item)">Edit</button>
+      <button class="btn-delete" (click)="delete(item._id!)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="editor-card" *ngIf="showForm">
+  <h2>{{ editing ? 'Edit Item' : 'New Portfolio Item' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="save()" class="editor-form">
+    <div class="form-row">
+      <div class="field">
+        <label>Title *</label>
+        <input type="text" formControlName="title">
+      </div>
+      <div class="field">
+        <label>Project Type</label>
+        <input type="text" formControlName="projectType" placeholder="Website, Mobile App…">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Client</label>
+        <input type="text" formControlName="client">
+      </div>
+      <div class="field">
+        <label>Technologies</label>
+        <input type="text" formControlName="technologies" placeholder="Angular, Node.js…">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Thumbnail URL *</label>
+        <input type="url" formControlName="thumbnailUrl">
+      </div>
+      <div class="field">
+        <label>Preview URL</label>
+        <input type="url" formControlName="previewUrl">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Content Type</label>
+        <select formControlName="contentType">
+          <option value="image">Image</option>
+          <option value="carousel">Carousel</option>
+          <option value="youtube">YouTube</option>
+          <option value="video">Video</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Display Order</label>
+        <input type="number" formControlName="order">
+      </div>
+    </div>
+    <div class="field">
+      <label>Media URLs (one per line)</label>
+      <textarea formControlName="mediaUrls" rows="4" placeholder="https://..."></textarea>
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <textarea formControlName="description" rows="3"></textarea>
+    </div>
+    <div class="field checkbox">
+      <label><input type="checkbox" formControlName="isVisible"> Visible on portfolio</label>
+    </div>
+    <div class="form-actions">
+      <button type="submit">{{ editing ? 'Update' : 'Create' }}</button>
+      <button type="button" class="btn-secondary" (click)="resetForm()">Cancel</button>
+    </div>
+  </form>
+</div>

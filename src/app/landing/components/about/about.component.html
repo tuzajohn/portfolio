@@ -1,0 +1,188 @@
+<div class="page" id="about">
+    <!-- Main Content Starts -->
+    <!-- Section Title Starts -->
+    <div class="title-section text-left text-sm-center">
+        <h2>ABOUT <span>ME</span>
+        </h2>
+        <span class="title-bg">Resume</span>
+    </div>
+    <!-- Section Title Ends -->
+    <div class="about">
+        <div class="main-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Personal Info Starts -->
+                    <div class="col-12 col-lg-5 col-xl-6" *ngIf="profile">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-uppercase custom-title mb-0 ft-wt-600">personal infos</h3>
+                            </div>
+                            <div class="col-12 d-block d-sm-none">
+                                <img src="http://via.placeholder.com/300x300.jpg" class="img-fluid main-img-mobile"
+                                    alt="my picture">
+                            </div>
+                            <div class="col-6">
+                                <ul class="about-list list-unstyled open-sans-font">
+                                    <li>
+                                        <span class="title">first name: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.firstName}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">last name: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.lastName}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Age: </span>
+                                        <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block"> {{profile.age}}
+                                            Years</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Nationality: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.nationality}}</span>
+                                    </li>
+                                    <!-- <li>
+                                        <span class="title">Freelance :</span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">Available</span>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul class="about-list list-unstyled open-sans-font">
+                                    <li>
+                                        <span class="title">Address: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.address}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">phone: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.primaryPhoneNumber}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Email: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.address}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Skype: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.skype}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">langages: </span>
+                                        <span
+                                            class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{profile.languages}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <a class="button" target="_blank" href="#">
+                                    <span class="button-text">Download CV</span>
+                                    <span class="button-icon fa fa-download"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Personal Info Ends -->
+                    <!-- Boxes Starts -->
+                    <div class="col-12 col-lg-7 col-xl-6 mt-5 mt-lg-0">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="box-stats with-margin">
+                                    <h3 class="poppins-font position-relative">12</h3>
+                                    <p class="open-sans-font m-0 position-relative text-uppercase">years of <span
+                                            class="d-block">experience</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="box-stats with-margin">
+                                    <h3 class="poppins-font position-relative">97</h3>
+                                    <p class="open-sans-font m-0 position-relative text-uppercase">completed <span
+                                            class="d-block">projects</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="box-stats">
+                                    <h3 class="poppins-font position-relative">81</h3>
+                                    <p class="open-sans-font m-0 position-relative text-uppercase">Happy <span
+                                            class="d-block">customers</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="box-stats">
+                                    <h3 class="poppins-font position-relative">53</h3>
+                                    <p class="open-sans-font m-0 position-relative text-uppercase">awards <span
+                                            class="d-block">won</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Boxes Ends -->
+                </div>
+                <hr class="separator">
+                <!-- Skills Starts -->
+                <div class="row">
+                    <div class="col-12">
+                        <h3
+                            class="text-uppercase pb-4 pb-sm-5 mb-3 mb-sm-0 text-left text-sm-center custom-title ft-wt-600">
+                            My
+                            Skills</h3>
+                    </div>
+                    <div *ngFor="let skill of skillListings" class="col-6 col-md-3 mb-3 mb-sm-5">
+                        <div class="c100 p{{skill.skillLevelPercentage}}">
+                            <span>{{skill.skillLevelPercentage}}%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                        <h6 class="text-uppercase open-sans-font text-center mt-2 mt-sm-4">{{skill.name}}</h6>
+                    </div>
+
+                </div>
+                <!-- Skills Ends -->
+                <hr class="separator mt-1">
+                <!-- Experience & Education Starts -->
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-uppercase pb-5 mb-0 text-left text-sm-center custom-title ft-wt-600">Experience
+                            <span>&</span> Education
+                        </h3>
+                    </div>
+                    <div *ngFor="let group of experiences" class="col-lg-6 m-15px-tb">
+                        <div class="resume-box">
+                            <ul>
+                                <li *ngFor="let item of group">
+                                    <div class="icon">
+                                        <i class="fa"
+                                            [ngClass]="{'fa-briefcase': item.category === 'work', 'fa-graduation-cap': item.category === 'education', 'fa-folder': item.category === 'project'}"></i>
+                                    </div>
+                                    <span class="time open-sans-font text-uppercase">
+                                        {{ item.fromDate | date:'yyyy' }}
+                                        <span *ngIf="item.isCurrentRole"> - Present</span>
+                                        <span *ngIf="!item.isCurrentRole && item.toDate"> - {{ item.toDate | date:'yyyy' }}</span>
+                                    </span>
+                                    <h5 class="poppins-font text-uppercase">{{item.jobProjectTitle}} <span
+                                            class="place open-sans-font">{{item.employer}}</span>
+                                    </h5>
+                                    <p class="open-sans-font">{{item.description}}</p>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Experience & Education Ends -->
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Ends -->
+</div>

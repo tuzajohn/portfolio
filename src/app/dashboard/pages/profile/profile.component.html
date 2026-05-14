@@ -1,0 +1,82 @@
+<div class="page-header">
+  <h1>Profile</h1>
+  <p>Manage your homepage hero section and personal details.</p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSave()" class="editor-form">
+  <div class="form-section">
+    <h3>Hero Section</h3>
+    <div class="form-row">
+      <div class="field">
+        <label>Display Name</label>
+        <input type="text" formControlName="name" placeholder="John Doe">
+      </div>
+      <div class="field">
+        <label>Job Title / Position</label>
+        <input type="text" formControlName="latestWorkPosition" placeholder="Full Stack Developer">
+      </div>
+    </div>
+    <div class="field">
+      <label>Short Resume</label>
+      <textarea formControlName="shortResume" rows="3" placeholder="A brief intro displayed on the homepage..."></textarea>
+    </div>
+    <div class="field">
+      <label>Profile Image URL</label>
+      <input type="url" formControlName="imageUrl" placeholder="https://...">
+    </div>
+    <div class="field">
+      <label>CV / Resume URL</label>
+      <input type="url" formControlName="cvUrl" placeholder="https://...">
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Personal Info</h3>
+    <div class="form-row">
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" formControlName="firstName">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" formControlName="lastName">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="date" formControlName="dateOfBirth">
+      </div>
+      <div class="field">
+        <label>Nationality</label>
+        <input type="text" formControlName="nationality">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Address</label>
+        <input type="text" formControlName="address">
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" formControlName="primaryPhoneNumber">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Skype</label>
+        <input type="text" formControlName="skype">
+      </div>
+      <div class="field">
+        <label>Languages</label>
+        <input type="text" formControlName="languages" placeholder="English, French">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" [disabled]="saving">{{ saving ? 'Saving…' : 'Save Changes' }}</button>
+    <span *ngIf="saved" class="success-msg">Saved successfully.</span>
+    <span *ngIf="error" class="error-msg">{{ error }}</span>
+  </div>
+</form>

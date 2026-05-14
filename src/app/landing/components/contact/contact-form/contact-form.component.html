@@ -1,0 +1,32 @@
+<form class="contactform" (ngSubmit)="onSubmit()">
+    <div class="contactform">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <input autocomplete="off" type="text" required [(ngModel)]="form.name" name="name"
+                    [placeholder]="getLabel('Name')">
+            </div>
+            <div class="col-12 col-md-4">
+                <input autocomplete="off" type="email" name="email" required [(ngModel)]="form.email"
+                    [placeholder]="getLabel('Email')">
+            </div>
+            <div class="col-12 col-md-4">
+                <input autocomplete="off" type="text" name="subject" required [(ngModel)]="form.subject"
+                    [placeholder]="getLabel('Subject')">
+            </div>
+            <div class="col-12">
+                <textarea name="message" [placeholder]="getLabel('Message')" required
+                    [(ngModel)]="form.message"></textarea>
+                <button type="submit" class="button">
+                    <span class="button-text">{{ buttonMessage }}</span>
+                    <span class="button-icon fa fa-send"></span>
+                </button>
+            </div>
+            <div class="col-12 form-message">
+                <span *ngIf="messageResponse" class="output_message text-center font-weight-600 text-uppercase"
+                    [ngClass]="{'text-success': messageResponse.isSuccess, 'text-danger': !messageResponse.isSuccess}">
+                    {{ messageResponse.message }}
+                </span>
+            </div>
+        </div>
+    </div>
+</form>

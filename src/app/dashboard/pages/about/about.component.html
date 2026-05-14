@@ -1,0 +1,119 @@
+<div class="page-header">
+  <h1>About</h1>
+  <p>Manage work experiences and skills shown in the About section.</p>
+</div>
+
+<!-- Experiences -->
+<div class="editor-card">
+  <h2>Work Experience & Education</h2>
+
+  <table class="data-table" *ngIf="experiences.length">
+    <thead>
+      <tr><th>Title</th><th>Employer</th><th>Category</th><th>From</th><th>To</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exp of experiences">
+        <td>{{ exp.jobProjectTitle }}</td>
+        <td>{{ exp.employer }}</td>
+        <td>{{ exp.category }}</td>
+        <td>{{ exp.fromDate | date:'yyyy' }}</td>
+        <td>{{ exp.isCurrentRole ? 'Present' : (exp.toDate | date:'yyyy') }}</td>
+        <td class="actions">
+          <button class="btn-edit" (click)="editExp(exp)">Edit</button>
+          <button class="btn-delete" (click)="deleteExp(exp._id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form [formGroup]="expForm" (ngSubmit)="saveExp()" class="editor-form mt-3">
+    <h3>{{ editingExp ? 'Edit Experience' : 'Add Experience' }}</h3>
+    <div class="form-row">
+      <div class="field">
+        <label>Category</label>
+        <select formControlName="category">
+          <option value="work">Work</option>
+          <option value="education">Education</option>
+          <option value="project">Project</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Title / Role</label>
+        <input type="text" formControlName="jobProjectTitle">
+      </div>
+      <div class="field">
+        <label>Employer / Institution</label>
+        <input type="text" formControlName="employer">
+      </div>
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <textarea formControlName="description" rows="3"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>From Date</label>
+        <input type="date" formControlName="fromDate">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input type="date" formControlName="toDate">
+      </div>
+      <div class="field">
+        <label>Period Label (optional)</label>
+        <input type="text" formControlName="period" placeholder="e.g. 2 years">
+      </div>
+    </div>
+    <div class="field checkbox">
+      <label><input type="checkbox" formControlName="isCurrentRole"> Current Role</label>
+    </div>
+    <div class="form-actions">
+      <button type="submit">{{ editingExp ? 'Update' : 'Add' }}</button>
+      <button type="button" class="btn-secondary" *ngIf="editingExp" (click)="resetExpForm()">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<!-- Skills -->
+<div class="editor-card">
+  <h2>Skills</h2>
+
+  <table class="data-table" *ngIf="skills.length">
+    <thead>
+      <tr><th>Skill</th><th>Level (%)</th><th>Order</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let skill of skills">
+        <td>{{ skill.name }}</td>
+        <td>{{ skill.skillLevelPercentage }}%</td>
+        <td>{{ skill.order }}</td>
+        <td class="actions">
+          <button class="btn-edit" (click)="editSkill(skill)">Edit</button>
+          <button class="btn-delete" (click)="deleteSkill(skill._id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form [formGroup]="skillForm" (ngSubmit)="saveSkill()" class="editor-form mt-3">
+    <h3>{{ editingSkill ? 'Edit Skill' : 'Add Skill' }}</h3>
+    <div class="form-row">
+      <div class="field">
+        <label>Skill Name</label>
+        <input type="text" formControlName="name">
+      </div>
+      <div class="field">
+        <label>Level (0–100)</label>
+        <input type="number" formControlName="skillLevelPercentage" min="0" max="100">
+      </div>
+      <div class="field">
+        <label>Display Order</label>
+        <input type="number" formControlName="order">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit">{{ editingSkill ? 'Update' : 'Add' }}</button>
+      <button type="button" class="btn-secondary" *ngIf="editingSkill" (click)="resetSkillForm()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,24 @@
+<div class="page page--current" id="home">
+    <div class="home">
+        <div class="container-fluid main-container container-home p-0">
+            <div class="color-block d-none d-lg-block"></div>
+            <div class="row home-details-container align-items-center">
+                <img class="col-lg-4 position-fixed d-none d-lg-block" [src]="profile?.imageUrl ?? ''" alt="">
+                <div class="col-12 col-lg-8 offset-lg-4 home-details text-left text-sm-center text-lg-left">
+                    <div>
+                        <img [src]="profile?.imageUrl ?? ''"
+                            class="img-fluid main-img-mobile d-none d-sm-block d-lg-none" alt="my picture">
+                        <h2 class="text-uppercase poppins-font">
+                            I'm {{ profile?.name }}. <span>{{ profile?.latestWorkPosition }}</span>
+                        </h2>
+                        <p class="open-sans-font">{{ profile?.shortResume }}</p>
+                        <a id="link-about" class="button">
+                            <span class="button-text">more about me</span>
+                            <span class="button-icon fa fa-arrow-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

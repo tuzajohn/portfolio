@@ -1,0 +1,30 @@
+<div class="dashboard-layout">
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-brand">
+      <span>Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="profile" routerLinkActive="active">
+        <i class="fa fa-user"></i> Profile
+      </a>
+      <a routerLink="about" routerLinkActive="active">
+        <i class="fa fa-id-card"></i> About
+      </a>
+      <a routerLink="portfolio" routerLinkActive="active">
+        <i class="fa fa-briefcase"></i> Portfolio
+      </a>
+      <a routerLink="blog" routerLinkActive="active">
+        <i class="fa fa-pencil"></i> Blog
+      </a>
+      <a routerLink="contact" routerLinkActive="active">
+        <i class="fa fa-envelope"></i> Contact
+      </a>
+    </nav>
+    <button class="sidebar-logout" (click)="logout()">
+      <i class="fa fa-sign-out"></i> Logout
+    </button>
+  </aside>
+  <main class="dashboard-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
